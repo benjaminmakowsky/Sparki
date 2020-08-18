@@ -11,11 +11,7 @@ from sphero_sdk import SerialAsyncDal
 
 loop = asyncio.get_event_loop()
 
-rvr = SpheroRvrAsync(
-    dal=SerialAsyncDal(
-        loop
-    )
-)
+rvr = SpheroRvrAsync(dal=SerialAsyncDal(loop))
 
 
 async def main():
@@ -26,14 +22,6 @@ async def main():
 
     # Give RVR time to wake up
     await asyncio.sleep(2)
-
-    await rvr.set_all_leds(
-        led_group=RvrLedGroups.all_lights.value,
-        led_brightness_values=[color for _ in range(10) for color in Colors.off.value]
-    )
-
-    # Delay to show LEDs change
-    await asyncio.sleep(1)
 
     await rvr.set_all_leds(
         led_group=RvrLedGroups.all_lights.value,
