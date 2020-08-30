@@ -9,8 +9,8 @@ var server = http.createServer();
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "password",
-  database: "messages"
+  password: "YOUR_PASSWORD_HERE",
+  database: "SPARKI"
 });
 
 con.connect(function(err) {
@@ -20,13 +20,13 @@ con.connect(function(err) {
 //Create a listener  that response with a request with a webpage
 server.addListener('request', (request, response) => {
   response.writeHead(200); // HTTP Status Code 200 - Okay.
-  con.query("SELECT * FROM messages", (err, result) => {
+  con.query("SELECT * FROM stats", (err, result, fields) => {
     if(err){
       response.write(err)
     } else {
       response.write(JSON.stringify(result));
     }
-    response.end(); // Finish and send the response.
+  response.end(); // Finish and send the response.
   });
 });
 
