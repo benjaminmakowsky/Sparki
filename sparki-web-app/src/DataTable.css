@@ -1,0 +1,27 @@
+.DataTable{
+    border-radius: 20px;
+    border: 2px solid;
+    letter-spacing: 1px;
+    font-size: 2rem;
+}
+.LeftTableHeader{
+    min-width:  15ch;
+    border-bottom: thick double #ff8c6f;
+    border-right: solid;
+}
+.CenterTableHeader{
+    min-width:  15ch;
+    border-bottom: thick double #ff8c6f;
+    border-right: solid;
+    border-left: solid;
+
+}
+.RightTableHeader{
+    min-width:  15ch;
+    border-bottom: thick double #ff8c6f;
+    border-left: solid;
+}
+
+.TableData{
+    text-align: center;
+}
