@@ -12,15 +12,16 @@ const mysql = require('../node_modules/mysql');
 
 //--------------------------Setup------------------------------//
 
-//Debug function to verify which path is being captured
-function printPath(req, res, next){
-    console.log(req.path);
-    next();
-}
+// //Debug function to verify which path is being captured
+// function printPath(req, res, next){
+//     console.log(req.path);
+//     next();
+// }
 
 /*Express.js stuff*/
 const app = express();  //Create an instance of express to manage our server
-app.use(printPath,cors());        //Without this line, when we try to fetch from react. Nothing would happen
+//app.use(printPath,cors());        //Without this line, when we try to fetch from react. Nothing would happen
+app.use(cors());        //Without this line, when we try to fetch from react. Nothing would happen
 
 const PORT = 4000;      //The port to listen on
 
