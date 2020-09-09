@@ -3,25 +3,50 @@
     border: 2px solid;
     letter-spacing: 1px;
     font-size: 2rem;
+    color: #dddddd;
 }
+.DataTableBody{
+    background-color: #0c2232;
+    border-bottom-left-radius: 18px;
+}
+.RobotTitle{
+    border-top-left-radius: 18px;
+    border-bottom: groove #00FF99;
+    text-align: center;
+    font-size: 3rem;
+    background-color: #794727;
+}
+.HardwareInfo{
+    text-indent: 5px;
+    border-left: solid #ffffff;
+    border-top-right-radius: 18px;
+    border-bottom: groove #00FF99;
+    text-align: left;
+    font-size: 1rem;
+    background-color: #572b26;
+}
+
 .LeftTableHeader{
     min-width:  15ch;
     border-bottom: thick double #ff8c6f;
-    border-right: solid;
 }
 .CenterTableHeader{
     min-width:  15ch;
     border-bottom: thick double #ff8c6f;
     border-right: solid;
     border-left: solid;
-
 }
 .RightTableHeader{
     min-width:  15ch;
     border-bottom: thick double #ff8c6f;
-    border-left: solid;
 }
 
 .TableData{
     text-align: center;
 }
+.TableDataBottomLeft{
+    border-bottom-left-radius: 18px;
+}
+.TableDataBottomRight{
+     border-bottom-right-radius: 18px;
+ }

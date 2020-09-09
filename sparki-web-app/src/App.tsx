@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {TextField} from "./TextField";
 import {DatabaseView} from "./DataBaseViewer";
 
 
@@ -12,15 +11,17 @@ const App: React.FC = () => {
     //useSTATE will be ran everrytime we re-render unless we do useState(() => {function})OPtimaization bro!
     const [battery, setBattery] = useState('');
     const [heading, setHeading] = useState('');
+    const [ambientLight, setAmbientLight] = useState('');
 
     //Runs when application loads
     useEffect(()=> {
-        fetch('http://localhost:4000/stats')
+        fetch('http://172.20.10.7:4000/stats')
             .then(response => response.json())
             .then(response => {
                 //response.data[0] is the first column of the database
                 setBattery(response.data[0].battery);
                 setHeading(response.data[0].heading);
+                setAmbientLight(response.data[0].light);
             });
     });
 
@@ -29,8 +30,7 @@ const App: React.FC = () => {
   return (
       <header className="App-header">
           <div>
-            <TextField text={"SPARKI"}/>
-            <DatabaseView  battery={battery} heading={heading}/>
+            <DatabaseView  battery={battery} heading={heading} light={ambientLight}/>
           </div>
       </header>
   )
