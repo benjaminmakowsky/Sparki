@@ -1,13 +1,13 @@
 //Allows us to  perform routing and respond to various http request methods (GET, POST, PUT, DELETE)
-const express = require('../node_modules/express');
+const express = require('express');
 
 /* Cross-Origin-Resource-Sharing
 This is what allows our front-end react app to connect with our server and fetch the data being presented.
 Without cors() it would fail and nothing would happen. */
-const cors = require('../node_modules/cors');
+const cors = require('cors');
 
 //Allows us to connect to our database
-const mysql = require('../node_modules/mysql');
+const mysql = require('mysql');
 
 
 //--------------------------Setup------------------------------//
