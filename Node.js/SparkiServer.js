@@ -1,38 +1,69 @@
-//JavaScript import statements
-var http = require('http');
-var mysql = require('mysql')
+//Allows us to  perform routing and respond to various http request methods (GET, POST, PUT, DELETE)
+const express = require('../node_modules/express');
 
-//create the server
-var server = http.createServer();
+/* Cross-Origin-Resource-Sharing
+This is what allows our front-end react app to connect with our server and fetch the data being presented.
+Without cors() it would fail and nothing would happen. */
+const cors = require('../node_modules/cors');
 
-//create a connection to the database
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "YOUR_PASSWORD_HERE",
-  database: "SPARKI"
+//Allows us to connect to our database
+const mysql = require('../node_modules/mysql');
+
+
+//--------------------------Setup------------------------------//
+
+// //Debug function to verify which path is being captured
+// function printPath(req, res, next){
+//     console.log(req.path);
+//     next();
+// }
+
+/*Express.js stuff*/
+const app = express();  //Create an instance of express to manage our server
+//app.use(printPath,cors());        //Without this line, when we try to fetch from react. Nothing would happen
+app.use(cors());        //Without this line, when we try to fetch from react. Nothing would happen
+
+const PORT = 4000;      //The port to listen on
+
+/*Creating the database connection*/
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "SPARKI"
 });
 
 con.connect(function(err) {
-  if (err) throw err;
-});
-
-//Create a listener  that response with a request with a webpage
-server.addListener('request', (request, response) => {
-  response.writeHead(200); // HTTP Status Code 200 - Okay.
-  con.query("SELECT * FROM stats", (err, result, fields) => {
-    if(err){
-      response.write(err)
-    } else {
-      response.write(JSON.stringify(result));
-    }
-  response.end(); // Finish and send the response.
-  });
+    if (err) throw err;
 });
 
 
+//--------------------------Controlling GET Requests------------------------------//
 
-// default port will do fine
-const port = 8080;
-server.listen(port); 
-console.log("The Node Server is running");
+//Respond to a GET request at the designated path displaying all values in the stats table
+app.get('/stats', (req, res) => {
+    con.query("SELECT * FROM stats", (err, result) => {
+        if (err) {return res.send(err)}
+        else {return res.json({data: result})}
+    });
+});
+
+//Respond to GET with design to retrieve individual columns
+//Format localhost:PORT/stats/get?cell=CELL_NAME
+app.get('/stats/get', (req, res) => {
+    const {cell} = req.query; //gets the name of the cell from: ?cell=CELL_NAME
+    const query = `SELECT ${cell} FROM stats`; //Creates the query selecting the desired cell from stats table
+    con.query(query, (err, result) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.json({data: result});
+        }
+    });
+});
+
+
+//--------------------------Starting------------------------------//
+app.listen(PORT, () => {
+    console.log(`listening and started on PORT: ${PORT}`)
+});
